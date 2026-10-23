@@ -1,11 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio</title>
+    <title>Laboratorio de Polimorfismo - Figuras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
+
+    <div class="card">
+        <h2>Calculadora de Figuras Geométricas</h2>
+        <p>Selecciona una figura e introduce sus datos para ver el polimorfismo en acción.</p>
+        
+        <div class="form-group">
+            <label for="tipoFigura">Figura:</label>
+            <select id="tipoFigura" onchange="actualizarCampos()">
+                <option value="circulo">Círculo</option>
+                <option value="rectangulo">Rectángulo</option>
+                <option value="triangulo">Triángulo Rectángulo</option>
+            </select>
+        </div>
+
+        <div id="contenedorInputs">
+            <!-- Los inputs se generan dinámicamente aquí -->
+        </div>
+
+        <button onclick="calcular()">Calcular</button>
+
+        <div id="resultado"></div>
+    </div>
+
+    <!-- Script con la lógica de clases -->
     <script src="js/polimorfismo.js"></script>
+    
+    <!-- Script adicional para conectar la interfaz con las clases -->
+    <script>
+        function actualizarCampos() {
+            const tipo = document.getElementById('tipoFigura').value;
+            const contenedor = document.getElementById('contenedorInputs');
+            
+            if (tipo === 'circulo') {
+                contenedor.innerHTML = `
+                    <div class="form-group">
+                        <label for="radio">Radio:</label>
+                        <input type="number" id="radio" step="any" placeholder="Ej. 5">
+                    </div>
+                `;
+            } else if (tipo === 'rectangulo') {
+                contenedor.innerHTML = `
+                    <div class="form-group">
+                        <label for="base">Base:</label>
+                        <input type="number" id="base" step="any" placeholder="Ej. 4">
+                    </div>
+                    <div class="form-group">
+                        <label for="altura">Altura:</label>
+                        <input type="number" id="altura" step="any" placeholder="Ej. 6">
+                    </div>
+                `;
+            } else if (tipo === 'triangulo') {
+                contenedor.innerHTML = `
+                    <div class="form-group">
+                        <label for="base">Base:</label>
+                        <input type="number" id="base" step="any" placeholder="Ej. 3">
+                    </div>
+                    <div class="form-group">
+                        <label for="altura">Altura:</label>
+                        <input type="number" id="altura" step="any" placeholder="Ej. 4">
+                    </div>
+                `;
+            }
+        }
+
+        function calcular() {
+            const tipo = document.getElementById('tipoFigura').value;
+            let figura;
+            
+            if (tipo === 'circulo') {
+                const radio = parseFloat(document.getElementById('radio').value);
+                if (isNaN(radio)) { alert("Introduce un radio válido"); return; }
+                figura = new Circulo(radio);
+            } else if (tipo === 'rectangulo') {
+                const base = parseFloat(document.getElementById('base').value);
+                const altura = parseFloat(document.getElementById('altura').value);
+                if (isNaN(base) || isNaN(altura)) { alert("Introduce valores válidos"); return; }
+                figura = new Rectangulo(base, altura);
+            } else if (tipo === 'triangulo') {
+                const base = parseFloat(document.getElementById('base').value);
+                const altura = parseFloat(document.getElementById('altura').value);
+                if (isNaN(base) || isNaN(altura)) { alert("Introduce valores válidos"); return; }
+                figura = new TrianguloRectangulo(base, altura);
+            }
+            const divResultado = document.getElementById('resultado');
+            divResultado.style.display = 'block';
+            divResultado.innerHTML = `
+                <strong>Figura:</strong> ${figura.getNombre()}<br>
+                <strong>Área:</strong> ${figura.calcularArea().toFixed(2)}<br>
+                <strong>Perímetro:</strong> ${figura.calcularPerimetro().toFixed(2)}
+            `;
+        }
+        window.onload = actualizarCampos;
+    </script>
 </body>
 </html>
