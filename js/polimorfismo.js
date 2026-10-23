@@ -22,19 +22,17 @@ class Figura {
 }
 
 class Circulo extends Figura {
-  #radio;
 
-  constructor(radio) {
-    super("Círculo");
-    this.#radio = radio;
+  constructor() {
+    
   }
 
   calcularArea() {
-    return Math.PI * (this.#radio ** 2);
+    
   }
 
   calcularPerimetro() {
-    return 2 * Math.PI * this.#radio;
+    
   }
 }
 
@@ -42,21 +40,19 @@ class Circulo extends Figura {
 // 2: RECTÁNGULO
 // ==========================================
 class Rectangulo extends Figura {
-  #base;
-  #altura;
+  
 
-  constructor(base, altura) {
+  constructor() {
     super("Rectángulo");
-    this.#base = base;
-    this.#altura = altura;
+    
   }
 
   calcularArea() {
-    return this.#base * this.#altura;
+    
   }
 
   calcularPerimetro() {
-    return 2 * (this.#base + this.#altura);
+    
   }
 }
 
@@ -64,38 +60,21 @@ class Rectangulo extends Figura {
 // 3: TRIÁNGULO RECTÁNGULO
 // ==========================================
 class TrianguloRectangulo extends Figura {
-  #base;
-  #altura;
+  
 
-  constructor(base, altura) {
-    super("Triángulo Rectángulo");
-    this.#base = base;
-    this.#altura = altura;
+  constructor() {
+  
   }
 
   calcularArea() {
-    return (this.#base * this.#altura) / 2;
+    
   }
 
   calcularPerimetro() {
-    // Teorema de Pitágoras para calcular la hipotenusa
-    const hipotenusa = Math.sqrt((this.#base ** 2) + (this.#altura ** 2));
-    return this.#base + this.#altura + hipotenusa;
+    
   }
 }
 
 // ==========================================
 // 4: ZONA DE PRUEBAS
 // ==========================================
-const figuras = [
-  new Circulo(5),    
-  new Rectangulo(4, 6),    
-  new TrianguloRectangulo(3, 4) 
-];
-
-figuras.forEach(figura => {
-  console.log(` ${figura.getNombre()} `);
-  console.log(`Área: ${figura.calcularArea().toFixed(2)}`);
-  console.log(`Perímetro: ${figura.calcularPerimetro().toFixed(2)}`);
-  console.log("");
-});
