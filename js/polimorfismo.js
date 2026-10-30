@@ -83,14 +83,37 @@ class TrianguloRectangulo extends Figura {
     return this.#base + this.#altura + hipotenusa;
   }
 }
+class Trapecio extends Figura{
+  #baseMayor;
+  #baseMenor;
+  #altura
+  #ladoA
+  #ladoB
+  constructor(baseMayor, baseMenor, altura, ladoA, ladoB){
+    super("Trapecio")
+    this.#baseMayor = baseMayor
+    this.#baseMenor = baseMenor
+    this.#altura = altura
+    this.#ladoA = ladoA
+    this.#ladoB = ladoB
+  }
+  calcularArea(){
+    return ((this.#baseMayor + this.#baseMenor ) / 2) * this.#altura
+  }
+  calcularPerimetro(){
+    return( this.#baseMayor + this.#baseMenor + this.#altura + this.#ladoA + this.#ladoB)
 
+  }
+}
 // ==========================================
 // 4: ZONA DE PRUEBAS
 // ==========================================
 const figuras = [
   new Circulo(5),    
   new Rectangulo(4, 6),    
-  new TrianguloRectangulo(3, 4) 
+  new TrianguloRectangulo(3, 4), 
+  new Trapecio(10, 6, 4, 5, 5),
+  new Trapecio(8, 4, 3, 3.5, 3.5)
 ];
 
 figuras.forEach(figura => {
